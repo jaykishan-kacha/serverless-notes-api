@@ -16,7 +16,8 @@ provider:
   stage: prod
   region: us-east-1
   environment:
-    tableName: notes
+    tableName: ${env:TABLE_NAME}
+    stripeSecretKey:
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -70,3 +71,14 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+  billing:
+    handler: billing.main
+    events:
+      - http:
+          path: billing
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+resources:
+  - ${file(resources/api-gateway-errors.yml)}
