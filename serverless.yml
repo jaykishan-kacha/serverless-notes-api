@@ -17,7 +17,7 @@ provider:
   region: us-east-1
   environment:
     tableName: ${env:TABLE_NAME}
-    stripeSecretKey:
+    stripeSecretKey: ${env:STRIPE_SECRET_KEY}
   iamRoleStatements:
     - Effect: Allow
       Action:
